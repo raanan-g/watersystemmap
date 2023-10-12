@@ -1,0 +1,898 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap");
+/**
+ BlueConduit's Copper Design System
+
+ This file contains our design tokens. For the most part, this is the only
+ place we should be hard-coding values for our design tokens. The rest of the
+ styles will inherit from these values; they are the source of truth.
+**/
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type=search] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+
+html {
+  font-size: 80%;
+}
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: #1e2329;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.cu-center {
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60ch;
+}
+
+.cu-center-all {
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60ch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cu-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack > * + * {
+  margin-top: 1rem;
+}
+
+.cu-stack-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-small > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-small > * + * {
+  margin-top: 0.5rem;
+}
+
+.cu-stack-large {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-large > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-large > * + * {
+  margin-top: 2rem;
+}
+
+.cu-stack-xl {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-xl > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-xl > * + * {
+  margin-top: 4rem;
+}
+
+/*
+  The Sidebar layout primitive is inspired by the Sidebar from Every Layout
+
+  Chose your class based on how you want the sidebar positioned and how you
+  want things to wrap on small screens.
+
+  These sidebar wrapper classes expect only two children, the sidebar and
+  content area containers. Need to test what happens if this guideline isn't
+  followed.
+*/
+.cu-sidebar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cu-sidebar-wrapper.cu-sidebar-wrapper--gutter {
+  gap: 1rem;
+}
+.cu-sidebar-wrapper > :first-child {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+.cu-sidebar-wrapper > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 50%;
+}
+
+.cu-sidebar-wrapper--right {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+.cu-sidebar-wrapper--right.cu-sidebar-wrapper--gutter {
+  gap: 1rem;
+}
+.cu-sidebar-wrapper--right > :first-child {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+.cu-sidebar-wrapper--right > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 50%;
+}
+
+.cu-sidebar-wrapper--below {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+.cu-sidebar-wrapper--below.cu-sidebar-wrapper--gutter {
+  gap: 1rem;
+}
+.cu-sidebar-wrapper--below > :last-child {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+.cu-sidebar-wrapper--below > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 50%;
+}
+
+.cu-sidebar-wrapper--right--below {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cu-sidebar-wrapper--right--below.cu-sidebar-wrapper--gutter {
+  gap: 1rem;
+}
+.cu-sidebar-wrapper--right--below > :last-child {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+.cu-sidebar-wrapper--right--below > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: 50%;
+}
+
+.cu-button {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  text-decoration: none;
+  text-align: center;
+  background-color: #164e87;
+  color: #ffffff;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+}
+.cu-button:hover {
+  background-color: #0b2553;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.cu-button:disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.cu-button-secondary {
+  background-color: #f7d694;
+  color: #1e2329;
+}
+.cu-button-secondary:hover {
+  background-color: #fac756;
+}
+
+.cu-button-grey {
+  background-color: #f4f5f7;
+  color: #1e2329;
+}
+.cu-button-grey:hover {
+  background-color: #f4f5f7;
+}
+
+.cu-check {
+  display: block;
+  min-height: 1.5em;
+}
+.cu-check > * {
+  vertical-align: middle;
+}
+.cu-check .cu-check__input {
+  width: 1em;
+  height: 1em;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  appearance: none;
+}
+.cu-check .cu-check__input[type=checkbox] {
+  border-radius: 0.25rem;
+}
+.cu-check .cu-check__input[type=radio] {
+  border-radius: 50%;
+}
+.cu-check .cu-check__input[type=radio]:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+.cu-check .cu-check__input:checked {
+  background: #5ca3ea;
+  border-color: #5ca3ea;
+}
+.cu-check .cu-check__input:checked[type=checkbox] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+.cu-check .cu-check__input:disabled {
+  opacity: 0.5;
+}
+.cu-check .cu-check__input:disabled ~ .cu-check__label {
+  color: #707a8a;
+}
+.cu-check .cu-check__label {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.cu-form--was-validated .cu-check__input:invalid {
+  border-color: #f37579;
+}
+.cu-form--was-validated .cu-check__input:invalid ~ .cu-check__label {
+  color: #f37579;
+}
+.cu-form--was-validated .cu-check__input:invalid ~ .cu-form__help-text {
+  display: none;
+}
+.cu-form--was-validated .cu-check__input:invalid ~ .cu-form__invalid-text {
+  display: block;
+}
+.cu-form--was-validated .cu-check__input:valid {
+  border-color: #31c48d;
+}
+.cu-form--was-validated .cu-check__input:valid:checked {
+  background-color: #31c48d;
+}
+.cu-form--was-validated .cu-check__input:valid ~ .cu-check__label {
+  color: #31c48d;
+}
+
+.cu-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack > * + * {
+  margin-top: 1rem;
+}
+
+.cu-stack-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-small > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-small > * + * {
+  margin-top: 0.5rem;
+}
+
+.cu-stack-large {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-large > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-large > * + * {
+  margin-top: 2rem;
+}
+
+.cu-stack-xl {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-stack-xl > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-stack-xl > * + * {
+  margin-top: 4rem;
+}
+
+.cu-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-form > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-form > * + * {
+  margin-top: 1rem;
+}
+.cu-form.cu-form--was-validated select:invalid,
+.cu-form.cu-form--was-validated input[type=text]:invalid,
+.cu-form.cu-form--was-validated textarea:invalid {
+  border-color: #f37579;
+}
+.cu-form.cu-form--was-validated select:invalid ~ .cu-form__help-text,
+.cu-form.cu-form--was-validated input[type=text]:invalid ~ .cu-form__help-text,
+.cu-form.cu-form--was-validated textarea:invalid ~ .cu-form__help-text {
+  display: none;
+}
+.cu-form.cu-form--was-validated select:invalid ~ .cu-form__invalid-text,
+.cu-form.cu-form--was-validated input[type=text]:invalid ~ .cu-form__invalid-text,
+.cu-form.cu-form--was-validated textarea:invalid ~ .cu-form__invalid-text {
+  display: block;
+}
+.cu-form.cu-form--was-validated select:valid,
+.cu-form.cu-form--was-validated input[type=text]:valid,
+.cu-form.cu-form--was-validated textarea:valid {
+  border-color: #31c48d;
+}
+.cu-form.cu-form--was-validated select:valid ~ .cu-form__help-text,
+.cu-form.cu-form--was-validated input[type=text]:valid ~ .cu-form__help-text,
+.cu-form.cu-form--was-validated textarea:valid ~ .cu-form__help-text {
+  display: block;
+}
+.cu-form.cu-form--was-validated select:invalid {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%231E2329'/%3E%3C/svg%3E%0A");
+}
+.cu-form.cu-form--was-validated select:valid {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%2331C48D'/%3E%3C/svg%3E%0A");
+}
+
+.cu-form__group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cu-form__group > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cu-form__group > * + * {
+  margin-top: 0.5rem;
+}
+.cu-form__group .cu-form--is-invalid {
+  border-color: #f37579;
+}
+.cu-form__group .cu-form--is-invalid ~ .cu-form__help-text {
+  display: none;
+}
+.cu-form__group .cu-form--is-invalid ~ .cu-form__invalid-text {
+  display: block;
+}
+.cu-form__group select.cu-form--is-invalid {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%231E2329'/%3E%3C/svg%3E%0A");
+}
+.cu-form__group .cu-form--is-valid {
+  border-color: #31c48d;
+}
+.cu-form__group select.cu-form--is-valid {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%2331C48D'/%3E%3C/svg%3E%0A");
+}
+
+fieldset.cu-form__group {
+  padding: 0;
+  border: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cu-form__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cu-form__help-text,
+.cu-form__invalid-text {
+  font-size: 0.8rem;
+}
+
+.cu-form__help-text {
+  display: block;
+}
+
+.cu-form__invalid-text {
+  display: none;
+  color: #f37579;
+}
+
+.cu-select-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 0.5em 2em 0.5em 0.75em;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%235CA3EA'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: right 0.75em bottom 50%;
+}
+.cu-select-input:focus {
+  border-color: #5ca3ea;
+  box-shadow: 0px 0px 10px rgba(92, 163, 234, 0.3);
+}
+.cu-select-input:disabled, .cu-select-input .cu-select-input--disabled {
+  cursor: not-allowed;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10H7Z' fill='%23707A8A'/%3E%3C/svg%3E%0A");
+  color: #707a8a;
+}
+.cu-select-input:disabled ~ .cu-form-helptext, .cu-select-input .cu-select-input--disabled ~ .cu-form-helptext {
+  color: #707a8a;
+}
+
+.cu-table-wrapper {
+  color: #1e2329;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  background-color: white;
+  overflow-x: auto;
+  overflow-y: scroll;
+  height: 60%;
+  width: 95%;
+}
+
+.cu-table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 650px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #1e2329;
+}
+.cu-table tr {
+  vertical-align: middle;
+  line-height: 16px;
+}
+
+.cu-table th {
+  top: 0;
+  background-color: white;
+  vertical-align: inherit;
+  text-align: left;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 1px solid #f4f5f7;
+  position: sticky;
+}
+.cu-table tbody > tr:hover {
+  background-color: rgba(92, 163, 234, 0.1);
+}
+.cu-table td {
+  max-width: 20%;
+  vertical-align: inherit;
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid #f4f5f7;
+}
+
+.cu-text-input {
+  width:300px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.cu-text-input:focus .cu-text-input:focus-visible, .cu-text-input.cu-text-input--focus {
+  outline: 1px solid #5ca3ea;
+  box-shadow: 0px 0px 10px rgba(92, 163, 234, 0.3);
+}
+.cu-text-input.cu-text-input--invalid {
+  background-color: rgba(243, 117, 121, 0.1);
+  border: 1px solid #f37579;
+}
+.cu-text-input:disabled, .cu-text-input .cu-text-input--disabled {
+  cursor: not-allowed;
+  color: #707a8a;
+  background-color: #efefef;
+  border: 1px solid #707a8a;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/*
+  Note from https://github.com/sass/dart-sass/issues/1099
+  In order to load files that start with numbers we have to explicitly give
+  it a different namespace, e.g.:
+  @use "base/1_normalize" as normalize;
+*/

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Learn About Your Water System</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
+    <style>
+      body { margin: 0; padding: 0; overflow: hidden;}
+      body * {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+      }
+      .logo-container {
+        margin: 10px;
+        display: flex;
+        align-items: center;  /* This vertically centers the logo and text */
+        padding-left: 10px;
+      }
+
+      #appLogo {
+        width: 60px;  /* Or whatever size you desire */
+        height: 60px;
+        margin-right: 10px;  /* Space between logo and text */
+      }
+
+      #appTitle {
+        font-size: 24px;  /* Adjust as needed */
+        color: #333;  /* Adjust color as needed */
+      }
+      #mapbox {
+          position: absolute;
+          top: 0;
+          bottom: 40%;
+          width: 60%;
+          left: 40%;
+      }
+      #zoom-message {
+        display: none;
+        padding: 10px;
+        position: absolute;
+        top: 20px;
+        background-color: rgba(255, 255, 255);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        left: 50%;
+        transform: translate(-50%, 0);
+        border-radius: 10px;
+      }
+      #loading {
+        display: none;
+        padding: 10px;
+        position: absolute;
+        top: 25%;
+        left: 75%;
+        transform: translate(-50%, 0);
+        border-radius: 10px;
+      }
+      .select-container {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        display: inline-block;
+        padding: 10px 10px;
+      }
+      select {
+        max-width: 240px;
+        height: 36px;
+        margin: 20px 20px;
+        border-style: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div id="mapbox"></div>
+    <div id="zoom-message"><small>Zoom in to view water system data.</small></div>
+    <div id="loading">
+      <svg width="50" height="20">
+        <rect width="15" height="20" x="0" y="0" fill="#44b865" id="bar1">
+          <animate attributeType="XML" attributeName="x" from="0" to="35" dur="1s" repeatCount="indefinite"/>
+        </rect>
+        <rect width="15" height="20" x="0" y="0" fill="#0B2553" id="bar2">
+          <animate attributeType="XML" attributeName="x" from="0" to="35" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+        <rect width="15" height="20" x="0" y="0" fill="#F7D694" id="bar3">
+          <animate attributeType="XML" attributeName="x" from="0" to="35" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+      </svg>
+    </div>
+    <div class="logo-container">
+      <h2 id="appTitle">Learn About Your Water System</h2>
+    </div>
+    <div class="system-detail-container">
+      <h3>Search for a place, then click on the water system in the map to view data.</h3>
+    </div>
+    <div class="panel">
+    </div>
+    <div class="data-attribution">
+      <p>Data source: <a href="https://www.epa.gov/ground-water-and-drinking-water/safe-drinking-water-information-system-sdwis-federal-reporting">U.S. EPA Safe Drinking Water Information System</a></p>
+    </div>
+    <!-- <div class="select-container">
+      <select id="metricSelect">
+        <option value="" disabled selected>Change Metric</option>
+      </select>
+    </div>
+    <div id="compare">
+      <a href="compare-metros.html"><button class="cu-button">Compare Cities</button></a>
+    </div> -->
+    <div class="select-container" style="display:none">
+      <p id='label1'>Select a metropoltan area:</p>
+      <select id="citySelect"></select>
+    </div>
+
+<link href="css/copper.css" rel="stylesheet">
+<link href="css/detail-panel.css" rel="stylesheet">
+<link href="css/legend.css" rel="stylesheet">
+<!-- scripts -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="js/metroCounties.js"></script>
+<script src="js/mapConfigs/config.js"></script>
+<script src="js/map.js"></script>
+<script src="js/data_dictionary.js"></script>
+<script src="js/api.js"></script>
+<script src="js/sdwis.js"></script>
+<script src="js/legend.js"></script>
+<script src="js/systemDetail.js"></script>
+<script type="module">
+
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var defaultMetric;
+    if (urlParams.has("defaultMetric")) {
+      defaultMetric = urlParams.get("defaultMetric");
+    }
+    else {
+      defaultMetric = "est_rate"
+    }
+    if (urlParams.has("compareMode")) {
+      document.getElementById('compare').style.display = 'none';
+    }
+
+
+    let hoveredStateId = null;
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      countries: 'us',
+      types:'place'
+    });
+    // Add the control to the map.
+    map.addControl(geocoder);
+    geocoder.on('result', function (e) {
+      var bbox = e.result.bbox;
+      var sw = bbox.slice(0, 2);
+      var ne = bbox.slice(2);
+      //const bounds = new mapboxgl.LngLatBounds(bbox[:1],bbox[2:]);
+      map.fitBounds([sw,ne], {duration: 3500});
+      getWaterSystemData(map, bbox);
+    });
+    document.getElementsByClassName("mapboxgl-ctrl-top-right")[0].className = 'mapboxgl-ctrl-top-left';
+    document.getElementsByClassName("mapboxgl-ctrl-geocoder--input")[0].placeholder = "Search for a place";
+
+
+    map.on("load", function () {
+      map.addSource('water-systems', {type:'geojson',data:{}});
+      map.addLayer({
+        id: 'systems',
+        type: 'fill',
+        source: 'water-systems',
+        paint: layerConfigs[defaultMetric]["paint"],
+        visible:true
+      });
+
+
+      map.on('click', 'systems', (e) => {
+        var pwsid = e.features[0].properties.pwsid;
+        fetchDetailsByPWSID(pwsid).then(data => {
+          renderData(
+              data.waterSystemData, 
+              data.lcrSampleData, 
+              data.violationData
+          );
+        });
+      });
+
+      // move layer below place labels
+      map.moveLayer('systems', 'settlement-subdivision-label');
+
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+      });
+      map.on('mousemove', 'systems', (e) => {
+
+        if (e.features.length > 0) {
+          if (hoveredStateId !== null) {
+            map.setFeatureState(
+              { source: 'water-systems', id: hoveredStateId },
+              { hover: false }
+            );
+          }
+          hoveredStateId = e.features[0].id;
+          map.setFeatureState(
+            { source: 'water-systems', id: hoveredStateId },
+            { hover: true }
+          );
+        }
+
+        const coordinates = e.lngLat;
+        const description = e.features[0].properties.pws_name;
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+
+      });
+      map.on('mouseleave', 'systems', (e) => {
+        if (hoveredStateId !== null) {
+          map.setFeatureState(
+            { source: 'water-systems', id: hoveredStateId },
+            { hover: false }
+          );
+        }
+        hoveredStateId = null;
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+      });
+
+
+
+      // handle map interaction
+      map.on('moveend', function() {
+        if (map.getZoom() >= 6) {
+          searchMapArea();
+        }
+      });
+      map.on('resize', function() {
+        if (map.getZoom() >= 6) {
+          searchMapArea();
+        }
+      });
+
+      // create legend
+      // var legend = createMapLegend(layerConfigs[defaultMetric]["metric"], layerConfigs[defaultMetric]["description"], layerConfigs[defaultMetric]["paint"]);
+      // document.body.appendChild(legend);
+
+      selectRandomMetro(citySelect);
+    });
+
+    var citySelect = document.getElementById("citySelect");
+    // Iterate through the metroCounties dictionary
+    for (var key in metroCounties) {
+      var name = metroCounties[key]["NAME"];
+      var bbox = metroCounties[key]["bbox"];
+
+      var option = document.createElement("option");
+      option.value = bbox;
+      option.text = name;
+      citySelect.add(option);
+    }
+
+    // Add an event listener to the select element to execute a function when an option is selected
+    citySelect.addEventListener("change", function() {
+      var selectedOption = citySelect.options[citySelect.selectedIndex];
+      var bbox = selectedOption.value;
+      var sw = bbox.split(",").map(parseFloat).slice(0, 2);
+      var ne = bbox.split(",").map(parseFloat).slice(2);
+      //const bounds = new mapboxgl.LngLatBounds(bbox[:1],bbox[2:]);
+      map.fitBounds([sw,ne], {duration: 3500});
+      // delay then get data from API
+      getWaterSystemData(map, bbox);
+    });
+
+    function selectRandomMetro(selectElement) {
+      const options = selectElement.options;
+      const numOptions = options.length;
+      const randomIndex = Math.floor(Math.random() * numOptions);
+      selectElement.selectedIndex = randomIndex;
+      const changeEvent = new Event('change');
+      selectElement.dispatchEvent(changeEvent);
+    }
+
+    //var metricSelect = document.getElementById("metricSelect");
+
+    // iterate through layerConfigs to add an option to the dropdown menu
+    // for each metric
+    
+    // Object.keys(layerConfigs).forEach((key, i) => {
+    //   var name = layerConfigs[key]['metric'];
+
+    //   var option = document.createElement("option");
+    //   option.value = key;
+    //   option.text = name;
+    //   metricSelect.add(option);
+    // });
+
+    // add event listener to metric dropdown
+    // metricSelect.addEventListener("change", function() {
+    //   var selectedOption = metricSelect.options[metricSelect.selectedIndex];
+    //   var metric = selectedOption.value;
+    //   //setMapMetric(map, metric);
+    // });
+
+    // change map metric
+    // function setMapMetric(map, metric) {
+    //   map.setPaintProperty('systems', 'fill-color', layerConfigs[metric]['paint']['fill-color']);
+    //   document.getElementById('legend').remove();
+    //   var legend = createMapLegend(layerConfigs[metric]['metric'], layerConfigs[metric]['description'], layerConfigs[metric]['paint']);
+    //   document.body.appendChild(legend);
+    //   //document.getElementById("legend").something = layerConfigs[metric]["legend"];
+    // }
+
+    // search map area
+    function searchMapArea(){
+      var bounds = map.getBounds();
+      var bbox = `${bounds._sw['lng']},${bounds._sw['lat']},${bounds._ne['lng']},${bounds._ne['lat']}`;
+      getWaterSystemData(map, bbox);
+    }
+
+</script>
+
+  </body>
+</html>
